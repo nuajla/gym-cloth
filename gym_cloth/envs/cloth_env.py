@@ -152,8 +152,11 @@ class ClothEnv(gym.Env):
         elif self._obs_type == 'blender':
             self._hd = 224
             self._wd = 224
-            self.obslow = np.zeros((self._hd, self._wd, 3)).astype(np.uint8)
-            self.obshigh = np.ones((self._hd, self._wd, 3)).astype(np.uint8)
+
+            n_channels = 4 if self._use_rgbd else 3
+
+            self.obslow = np.zeros((self._hd, self._wd, n_channels)).astype(np.uint8)
+            self.obshigh = np.ones((self._hd, self._wd, n_channels)).astype(np.uint8)
             self.observation_space = spaces.Box(self.obslow, self.obshigh, dtype=np.uint8)
         else:
             raise ValueError(self._obs_type)
